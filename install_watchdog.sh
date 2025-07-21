@@ -4,8 +4,8 @@
 NODE_DIR="$HOME/rl-swarm"
 LOG_FILE="$NODE_DIR/gensynnode.log"
 SCREEN_NAME="gensynnode"
-TG_BOT_TOKEN="ВАШ_ТОКЕН"
-TG_CHAT_ID="ВАШ_CHAT_ID"
+TG_BOT_TOKEN="8173670562:AAGIEeuRHAECuBXf6grxqOZtGBuWN8__HzY"
+TG_CHAT_ID="-1002700558969"
 
 # === Функция отправки в Telegram ===
 send_alert() {
@@ -19,9 +19,11 @@ send_alert() {
 while true; do
   sleep 15
 
+  # Проверка запущен ли screen
   if ! screen -list | grep -q "$SCREEN_NAME"; then
     send_alert "🔴 Gensyn node упала. Перезапускаем..."
 
+    # Перезапуск
     cd "$NODE_DIR" || exit
     screen -dmS "$SCREEN_NAME" bash -c "source .venv/bin/activate && bash run_rl_swarm.sh 2>&1 | tee $LOG_FILE"
 
@@ -34,4 +36,3 @@ while true; do
   fi
 
 done
-
